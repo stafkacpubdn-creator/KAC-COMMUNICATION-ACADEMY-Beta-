@@ -1,12 +1,4 @@
 
-/**
- * KAC Communicator Academy
- * Klien koneksi awal Google Apps Script.
- *
- * Tahap ini hanya memeriksa status backend.
- * Belum membaca atau menulis data peserta.
- */
-
 export interface BackendStatus {
   success: boolean;
   app?: string;
@@ -15,7 +7,8 @@ export interface BackendStatus {
   timestamp?: string;
 }
 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1HgSqNGZT_JUmKp4Lf0dbMR18_P1FLeTC0WQb50tAS0d3trbg65PAjrqhx7hBJBN3DQ/exec'; // Isi dengan URL Web app berakhiran /exec.
+const SCRIPT_URL =
+  'https://script.google.com/macros/s/AKfycbx1HgSqNGZT_JUmKp4Lf0dbMR18_P1FLeTC0WQb50tAS0d3trbg65PAjrqhx7hBJBN3DQ/exec';
 
 export async function checkBackend(): Promise<BackendStatus> {
   if (!SCRIPT_URL) {
