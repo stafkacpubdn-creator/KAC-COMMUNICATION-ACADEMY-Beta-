@@ -6,7 +6,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/KAC-COMMUNICATION-ACADEMY-Beta/',
+    base: '/KAC-COMMUNICATION-ACADEMY-Beta-/',
 
     plugins: [react(), tailwindcss()],
 
