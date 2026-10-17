@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BackendTest } from './components/BackendTest';
 import { AppProvider, useApp } from './context/AppContext';
 import { Sidebar } from './components/Sidebar';
 import { Navbar } from './components/Navbar';
@@ -109,7 +110,8 @@ const MainLayout: React.FC = () => {
         return <DapurSetting />;
       case 'setting_content_editor':
         return <LiveContentEditor />;
-
+      case 'backend_test':
+        return <BackendTest />;
       default:
         return <ExecutiveSummary />;
     }
