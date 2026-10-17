@@ -225,4 +225,5 @@ export type ActiveView =
   | 'setting_member_admin'
   | 'setting_content_editor'
   | 'forum_komunitas'
-  | 'kompetisi_teman';
+  | 'kompetisi_teman'
+  | 'backend_test';
