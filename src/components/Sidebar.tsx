@@ -531,6 +531,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
                 {isContentAdmin ? 'ADMIN' : 'RESTRICTED'}
               </span>
             </button>
+            
+            <button
+              onClick={() => handleNav('backend_test')}
+              className={`w-full flex items-center space-x-3 px-3 py-2 rounded-xl transition-all duration-150 text-left ${
+                isNavActive('backend_test')
+                  ? 'bg-gradient-to-r from-white/18 to-white/10 text-white font-medium border border-white/20'
+                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Activity className="w-4 h-4 text-cyan-400 shrink-0" />
+              <span className="truncate">Uji Koneksi Database</span>
+            </button>
 
             <button
               onClick={() => {
