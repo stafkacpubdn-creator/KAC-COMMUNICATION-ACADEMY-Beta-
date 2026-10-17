@@ -2,31 +2,35 @@
 import React, { useState } from 'react';
 import {
   checkBackend,
+  testBackendPost,
   type BackendStatus,
 } from '../data/googleSheets';
 
 export const BackendTest: React.FC = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<'get' | 'post' | null>(null);
   const [status, setStatus] = useState<BackendStatus | null>(null);
   const [error, setError] = useState('');
 
-  const handleTest = async () => {
-    setLoading(true);
+  const handleTest = async (method: 'get' | 'post') => {
+    setLoading(method);
     setStatus(null);
     setError('');
 
     try {
-      const result = await checkBackend();
+      const result =
+        method === 'get'
+          ? await checkBackend()
+          : await testBackendPost();
+
       setStatus(result);
     } catch (err) {
-      const message =
+      setError(
         err instanceof Error
           ? err.message
-          : 'Terjadi kesalahan yang tidak diketahui.';
-
-      setError(message);
+          : 'Terjadi kesalahan yang tidak diketahui.'
+      );
     } finally {
-      setLoading(false);
+      setLoading(null);
     }
   };
 
@@ -37,19 +41,30 @@ export const BackendTest: React.FC = () => {
           Uji Koneksi Database
         </h2>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Memeriksa respons backend Google Apps Script.
-          Pengujian ini tidak membaca atau mengubah data peserta.
+          Menguji respons GET dan POST Google Apps Script.
+          Tes ini tidak membaca atau mengubah data peserta.
         </p>
       </div>
 
-      <button
-        type="button"
-        onClick={handleTest}
-        disabled={loading}
-        className="rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium px-4 py-2"
-      >
-        {loading ? 'Memeriksa koneksi...' : 'Uji Koneksi'}
-      </button>
+      <div className="flex flex-wrap gap-3">
+        <button
+          type="button"
+          onClick={() => handleTest('get')}
+          disabled={loading !== null}
+          className="rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium px-4 py-2"
+        >
+          {loading === 'get' ? 'Menguji GET...' : 'Uji GET'}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => handleTest('post')}
+          disabled={loading !== null}
+          className="rounded-lg bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-medium px-4 py-2"
+        >
+          {loading === 'post' ? 'Menguji POST...' : 'Uji POST'}
+        </button>
+      </div>
 
       {status && (
         <div className="rounded-lg bg-emerald-50 dark:bg-emerald-950/40 p-4 text-sm space-y-1">
@@ -68,8 +83,8 @@ export const BackendTest: React.FC = () => {
           <p className="font-semibold">Pengujian belum berhasil</p>
           <p className="mt-1 break-words">{error}</p>
           <p className="mt-2">
-            Jika muncul pesan Failed to fetch, salah satu kemungkinan
-            penyebabnya adalah pembatasan CORS.
+            Jika muncul Failed to fetch, kemungkinan ada
+            kendala jaringan, pengalihan, atau CORS.
           </p>
         </div>
       )}
