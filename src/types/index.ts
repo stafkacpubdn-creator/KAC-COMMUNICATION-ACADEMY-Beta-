@@ -220,9 +220,53 @@ export type ActiveView =
   | 'bullet_pengabaran'
   | 'bullet_pembinaan'
   | 'bullet_aora'
+  | 'elevator_habit_lab'
+  | 'elevator_coach'
+  | 'elevator_human'
   | 'setting_tampilan'
   | 'setting_password'
   | 'setting_member_admin'
   | 'setting_content_editor'
   | 'forum_komunitas'
-  | 'kompetisi_teman';
+  | 'kompetisi_teman'
+  | 'panduan_infografis';
+
+export type ThemePalette =
+  | 'navy'
+  | 'light'
+  | 'emerald'
+  | 'amethyst'
+  | 'sepia'
+  | 'onyx'
+  | 'royal_gold'
+  | 'liquid_glass';
+
+export type LogoStyle = 'banner' | 'transparent';
+
+export interface DomainTitlesConfig {
+  sop: string;
+  dashboard: string;
+  academy: string;
+  studio: string;
+  forum: string;
+  setting: string;
+  signout: string;
+  appName: string;
+  appFullName: string;
+  appTagline: string;
+  subUnitDiction: string;
+}
+
+export interface ThemeOption {
+  id: ThemePalette;
+  name: string;
+  subtitle: string;
+  description: string;
+  isDark: boolean;
+  bgHex: string;
+  cardHex: string;
+  accentHex: string;
+  textHex: string;
+  contrastTag: string;
+}
+
