@@ -15,20 +15,37 @@ import {
   MessageSquare,
   Check,
   Send,
+  BookOpen,
+  ExternalLink,
+  Eye,
+  Bot,
+  Users,
+  ShieldCheck,
+  ArrowRight,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { FlipbookButton } from '../learning/FlipbookButton';
+import { FlipbookArsipCard } from '../learning/FlipbookArsipCard';
 
 interface BiteTheBulletsViewProps {
   bulletId: 'elevator-pitch' | 'pra-pengabaran' | 'materi-pengabaran' | 'materi-pembinaan' | 'aora';
 }
 
 export const BiteTheBulletsView: React.FC<BiteTheBulletsViewProps> = ({ bulletId }) => {
-  const { bullets, updateBulletModule, triggerCelebration, addNotification, currentUser } = useApp();
+  const { bullets, updateBulletModule, triggerCelebration, addNotification, currentUser, setActiveView } = useApp();
   const module = bullets[bulletId];
+
+  const navigateTo = (view: 'elevator_coach' | 'elevator_human', path: string) => {
+    try {
+      window.history.pushState(null, '', path);
+    } catch {}
+    setActiveView(view);
+  };
 
   // Elevator Pitch Timer
   const [pitchSeconds, setPitchSeconds] = useState(60);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [showEmbedFrame, setShowEmbedFrame] = useState(false);
 
   // AORA Worksheet State
   const [aoraForm, setAoraForm] = useState({
@@ -112,6 +129,108 @@ export const BiteTheBulletsView: React.FC<BiteTheBulletsViewProps> = ({ bulletId
           </div>
         )}
       </div>
+
+      {/* ELEVATOR PITCH FLIPBOOK BUTTON (COMMUNICATOR SKILL - ARSIP DOKUMEN SUMBER) */}
+      {bulletId === 'elevator-pitch' && (
+        <div className="space-y-4">
+          <FlipbookButton
+            href="https://heyzine.com/flip-book/34b7c06852.html"
+            colorVariant="red"
+            title="Flipbook Interaktif Elevator Pitch"
+            subtitle="COMMUNICATOR SKILL - ELEVATOR PITCH"
+            buttonText="OPEN FLIPBOOK ELEVATOR PITCH"
+            badgeText="ARSIP DOKUMEN SUMBER"
+            description="Klik tombol merah di samping untuk membuka modul referensi publikasi digital Elevator Pitch langsung di halaman ini."
+            modalTitle="Flipbook Elevator Pitch - Bite The Bullets"
+            onOpenInPage={() => setShowEmbedFrame((prev) => !prev)}
+            isOpenInPage={showEmbedFrame}
+          />
+
+          {/* Arsip Dokumen Sumber & Embed Viewer Card with Mobile Landscape Notifications */}
+          <FlipbookArsipCard
+            id="elevator-flipbook-frame"
+            url="https://heyzine.com/flip-book/34b7c06852.html"
+            moduleName="Elevator Pitch"
+            colorTheme="red"
+            tagline="Indeks resmi menuju publikasi digital Communicator Skill - Elevator Pitch"
+            showEmbedFrame={showEmbedFrame}
+            onToggleEmbed={() => setShowEmbedFrame((prev) => !prev)}
+          />
+
+          {/* Dual Quick Route Cards to /coach and /human */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* 1. LINK KE /COACH */}
+            <div className="p-5 rounded-3xl bg-gradient-to-br from-emerald-500/10 via-teal-500/5 to-transparent border border-emerald-500/25 dark:border-emerald-500/30 shadow-sm relative overflow-hidden flex flex-col justify-between group hover:border-emerald-500/50 transition-all">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                    ROUTE: /COACH
+                  </span>
+                  <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center">
+                    <Bot className="w-4 h-4" />
+                  </div>
+                </div>
+                <h4 className="text-base font-black text-slate-800 dark:text-white">
+                  AI Coach Elevator Pitch Lab
+                </h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Modul 21 hari mandiri &amp; studio latihan 5P+1R. Dapatkan evaluasi instan berbasis rubrik indikator (Relevansi, Kejelasan, Manfaat, Penyampaian, Interaksi, CTA) dengan anti-halusinasi validasi.
+                </p>
+              </div>
+
+              <div className="pt-4 flex items-center gap-2">
+                <a
+                  href="/coach"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo('elevator_coach', '/coach');
+                  }}
+                  className="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-md shadow-emerald-500/20 flex items-center justify-center space-x-2 transition-all cursor-pointer"
+                >
+                  <Bot className="w-4 h-4" />
+                  <span>Buka AI Coach (/coach)</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* 2. LINK KE /HUMAN */}
+            <div className="p-5 rounded-3xl bg-gradient-to-br from-purple-500/10 via-indigo-500/5 to-transparent border border-purple-500/25 dark:border-purple-500/30 shadow-sm relative overflow-hidden flex flex-col justify-between group hover:border-purple-500/50 transition-all">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-500/30">
+                    ROUTE: /HUMAN
+                  </span>
+                  <div className="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-500 flex items-center justify-center">
+                    <Users className="w-4 h-4" />
+                  </div>
+                </div>
+                <h4 className="text-base font-black text-slate-800 dark:text-white">
+                  Human &amp; Peer Review Dashboard
+                </h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Ruang review manusia berpasangan metode DENGAR, rotasi kelompok 4 orang, audit fasilitator, koreksi skor AI, dan rekap otomatis spreadsheet Google Sheets.
+                </p>
+              </div>
+
+              <div className="pt-4 flex items-center gap-2">
+                <a
+                  href="/human"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo('elevator_human', '/human');
+                  }}
+                  className="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs shadow-md shadow-purple-500/20 flex items-center justify-center space-x-2 transition-all cursor-pointer"
+                >
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>Buka Review Manusia (/human)</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Description & Core Concept */}
       <div className="p-5 rounded-2xl bg-sky-500/10 border border-sky-500/20 text-xs md:text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
