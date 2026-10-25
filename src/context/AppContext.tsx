@@ -13,6 +13,9 @@ import {
   AssessmentResult,
   DayHabit21,
   ReflectiveQuestionItem,
+  ThemePalette,
+  DomainTitlesConfig,
+  LogoStyle,
 } from '../types';
 import {
   INITIAL_USERS,
@@ -24,6 +27,20 @@ import {
   INITIAL_CALENDAR_EVENTS,
   INITIAL_FORUM_POSTS,
 } from '../data/initialData';
+
+export const DEFAULT_DOMAIN_TITLES: DomainTitlesConfig = {
+  sop: 'MA-COMM ACADEMY NETWORK SOP',
+  dashboard: 'DASHBOARD',
+  academy: 'PERSONAL GROWTH & HABIT-TRACKING ACADEMY',
+  studio: 'STUDIO & TACTICAL MODULE',
+  forum: 'THE COMMUNICATORS FORUM',
+  setting: 'SETTING',
+  signout: 'SIGN OUT',
+  appName: 'MACAN',
+  appFullName: 'Millah Abraham Communicators Academy Network',
+  appTagline: 'Professional Communication & Character Escalation Hub',
+  subUnitDiction: 'Shaf & Unit Regional',
+};
 import {
   INITIAL_21_DAYS_HABIT,
   calculateAssessmentScores,
@@ -40,6 +57,7 @@ import {
   MASTER_QUESTIONS_50,
 } from '../data/masterAssessment50Data';
 import { AUTHORIZED_CONTENT_ADMINS, isAuthorizedAdmin } from '../data/initialData';
+import { sendToAppsScript } from '../services/googleSyncService';
 
 interface ToastNotification {
   id: string;
@@ -58,10 +76,16 @@ interface AppContextType {
   updateUserProfilePicture: (userId: string, newAvatarUrl: string) => void;
   showProfileModal: boolean;
   setShowProfileModal: (val: boolean) => void;
+  showGoogleSyncModal: boolean;
+  setShowGoogleSyncModal: (val: boolean) => void;
   isContentAdmin: boolean;
 
   isDarkMode: boolean;
   setIsDarkMode: (val: boolean) => void;
+  themePalette: ThemePalette;
+  setThemePalette: (theme: ThemePalette) => void;
+  logoStyle: LogoStyle;
+  setLogoStyle: (style: LogoStyle) => void;
   isOfflineMode: boolean;
   setIsOfflineMode: (val: boolean) => void;
   isSyncing: boolean;
@@ -129,6 +153,10 @@ interface AppContextType {
   setShowCompetitionModal: (val: boolean) => void;
   showReportModal: boolean;
   setShowReportModal: (val: boolean) => void;
+
+  domainTitles: DomainTitlesConfig;
+  updateDomainTitles: (newTitles: Partial<DomainTitlesConfig>) => void;
+  resetDataToSourceCode: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -136,10 +164,40 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [activeView, setActiveView] = useState<ActiveView>('dashboard_executive');
 
+  const [themePalette, setThemePaletteState] = useState<ThemePalette>(() => {
+    const saved = localStorage.getItem('kac_theme_palette');
+    if (
+      saved &&
+      ['navy', 'light', 'emerald', 'amethyst', 'sepia', 'onyx', 'royal_gold', 'liquid_glass'].includes(saved)
+    ) {
+      return saved as ThemePalette;
+    }
+    const savedDark = localStorage.getItem('kac_dark_mode');
+    return savedDark === 'false' ? 'light' : 'navy';
+  });
+
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     const saved = localStorage.getItem('kac_dark_mode');
     return saved !== null ? JSON.parse(saved) : true;
   });
+
+  const setThemePalette = (theme: ThemePalette) => {
+    setThemePaletteState(theme);
+    localStorage.setItem('kac_theme_palette', theme);
+    // royal_gold, light, and sepia are bright/light modes
+    const isDark = theme !== 'light' && theme !== 'sepia' && theme !== 'royal_gold';
+    setIsDarkMode(isDark);
+  };
+
+  const [logoStyle, setLogoStyleState] = useState<LogoStyle>(() => {
+    const saved = localStorage.getItem('kac_logo_style');
+    return saved === 'transparent' ? 'transparent' : 'banner'; // default: 'banner' (logo yang memiliki background)
+  });
+
+  const setLogoStyle = (style: LogoStyle) => {
+    setLogoStyleState(style);
+    localStorage.setItem('kac_logo_style', style);
+  };
 
   const [isOfflineMode, setIsOfflineMode] = useState<boolean>(() => {
     return localStorage.getItem('kac_offline_mode') === 'true';
@@ -148,54 +206,69 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [isSyncing, setIsSyncing] = useState(false);
   const [lastSyncedTime, setLastSyncedTime] = useState('Sinkron: Otomatis (Cloud)');
 
-  // Users
+  // Domain Titles & Diction Live Config
+  const [domainTitles, setDomainTitles] = useState<DomainTitlesConfig>(() => {
+    const saved = localStorage.getItem('kac_domain_titles');
+    if (saved) {
+      try {
+        return { ...DEFAULT_DOMAIN_TITLES, ...JSON.parse(saved) };
+      } catch {
+        return DEFAULT_DOMAIN_TITLES;
+      }
+    }
+    return DEFAULT_DOMAIN_TITLES;
+  });
+
+  const updateDomainTitles = (newTitles: Partial<DomainTitlesConfig>) => {
+    setDomainTitles((prev) => {
+      const updated = { ...prev, ...newTitles };
+      localStorage.setItem('kac_domain_titles', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  // Users - SMART AUTO-MERGE: Source code changes in src/data/initialData.ts
+  // (names, units, emails, roles) ALWAYS take precedence and propagate immediately!
   const [allUsers, setAllUsers] = useState<UserProfile[]>(() => {
     const saved = localStorage.getItem('kac_users_list');
-    if (!saved) return INITIAL_USERS;
-    try {
-      const parsed: UserProfile[] = JSON.parse(saved);
-      const hasPubdn = parsed.some((u) => u.email === 'pubdnkac@gmail.com');
-      let result = parsed.map((u) => {
-        let name = u.name;
-        if (name.includes('Ust. Rachmat Hidayat') || name.includes('Rachmat Hidayat')) {
-          name = name.replace(/Ust\.\s*Rachmat Hidayat/g, 'Bung Abram Hanif').replace(/Rachmat Hidayat/g, 'Bung Abram Hanif');
-        }
-        if (!name.startsWith('Bung ')) {
-          name = `Bung ${name}`;
-        }
-        let email = u.email;
-        if (u.id === 'user-pusat' || email === 'kac.pusat@communicator.org') {
-          email = 'stafkacpubdn@gmail.com';
-        }
-        return {
-          ...u,
-          name,
-          email,
-          classProgress: u.classProgress || {
-            newbie: { passed: true, score: 88, completedAt: '2026-09-28', habitDaysDone: 21 },
-            runner: { passed: u.level >= 2, score: u.level >= 2 ? 85 : 0, habitDaysDone: u.level >= 2 ? 14 : 0 },
-            master: { passed: u.level >= 3, score: u.level >= 3 ? 90 : 0, habitDaysDone: u.level >= 3 ? 12 : 0 },
-          },
-          skillsRadar: u.skillsRadar || {
-            listening: 85,
-            verbal: 86,
-            nonVerbal: 82,
-            clarity: 88,
-            empathy: 87,
-            objectionHandling: 84,
-            fieldNegotiation: 83,
-            mentoringLeadership: 76,
-          },
-        };
-      });
-      if (!hasPubdn) {
-        const pubdnUser = INITIAL_USERS.find((u) => u.email === 'pubdnkac@gmail.com');
-        if (pubdnUser) result.push(pubdnUser);
+    let parsed: UserProfile[] = [];
+    if (saved) {
+      try {
+        parsed = JSON.parse(saved);
+      } catch {
+        parsed = [];
       }
-      return result;
-    } catch {
-      return INITIAL_USERS;
     }
+
+    const merged: UserProfile[] = INITIAL_USERS.map((initUser) => {
+      const existing = parsed.find((p) => p.id === initUser.id || p.unitCode === initUser.unitCode);
+      if (!existing) return initUser;
+      return {
+        ...initUser,
+        // Preserve user customizations made in browser while taking source initialData.ts names & units
+        avatar: existing.avatar || initUser.avatar,
+        streakDays: typeof existing.streakDays === 'number' ? existing.streakDays : initUser.streakDays,
+        totalXp: typeof existing.totalXp === 'number' ? existing.totalXp : initUser.totalXp,
+        level: typeof existing.level === 'number' ? existing.level : initUser.level,
+        adaptiveSpeed: existing.adaptiveSpeed || initUser.adaptiveSpeed,
+        comprehensionRate:
+          typeof existing.comprehensionRate === 'number' ? existing.comprehensionRate : initUser.comprehensionRate,
+        dailyLearningHours:
+          typeof existing.dailyLearningHours === 'number' ? existing.dailyLearningHours : initUser.dailyLearningHours,
+        lastActive: existing.lastActive || initUser.lastActive,
+        classProgress: existing.classProgress || initUser.classProgress,
+        skillsRadar: existing.skillsRadar || initUser.skillsRadar,
+      };
+    });
+
+    // Also include any locally created extra users
+    parsed.forEach((p) => {
+      if (!merged.some((m) => m.id === p.id)) {
+        merged.push(p);
+      }
+    });
+
+    return merged;
   });
 
   const [currentUserId, setCurrentUserId] = useState<string>(() => {
@@ -206,6 +279,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   // Profile Picture management
   const [showProfileModal, setShowProfileModal] = useState<boolean>(false);
+  const [showGoogleSyncModal, setShowGoogleSyncModal] = useState<boolean>(false);
 
   const updateUserProfilePicture = (userId: string, newAvatarUrl: string) => {
     setAllUsers((prev) => {
@@ -263,7 +337,29 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   // Lessons
   const [lessons, setLessons] = useState<Record<'newbie' | 'runner' | 'master', LessonContent>>(() => {
     const saved = localStorage.getItem('kac_lessons_config');
-    return saved ? JSON.parse(saved) : INITIAL_LESSONS;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (
+          !parsed.newbie?.flipbookUrl ||
+          parsed.newbie.flipbookUrl.includes('communicator-basic') ||
+          parsed.newbie.flipbookUrl.includes('84475c68c3')
+        ) {
+          parsed.newbie.flipbookUrl = 'https://heyzine.com/flip-book/c8cf26fe26.html';
+        }
+        if (
+          !parsed.master?.flipbookUrl ||
+          parsed.master.flipbookUrl.includes('communicator-basic') ||
+          parsed.master.flipbookUrl.includes('84475c68c3')
+        ) {
+          parsed.master.flipbookUrl = 'https://heyzine.com/flip-book/02dcdf4956.html';
+        }
+        return parsed;
+      } catch {
+        return INITIAL_LESSONS;
+      }
+    }
+    return INITIAL_LESSONS;
   });
 
   // Quizzes
@@ -524,15 +620,17 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     },
   ]);
 
-  // Sync to local storage
+  // Sync theme to local storage and document element
   useEffect(() => {
     localStorage.setItem('kac_dark_mode', JSON.stringify(isDarkMode));
+    localStorage.setItem('kac_theme_palette', themePalette);
+    document.documentElement.setAttribute('data-theme', themePalette);
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-  }, [isDarkMode]);
+  }, [isDarkMode, themePalette]);
 
   useEffect(() => {
     localStorage.setItem('kac_offline_mode', isOfflineMode ? 'true' : 'false');
@@ -631,14 +729,29 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
   };
 
-  const triggerCloudSync = () => {
+  const triggerCloudSync = async () => {
     setIsSyncing(true);
-    setTimeout(() => {
-      setIsSyncing(false);
+    try {
+      const payload = {
+        action: 'sync_all' as const,
+        senderEmail: currentUser.email || 'stafkacpubdn@gmail.com',
+        timestamp: new Date().toISOString(),
+        data: {
+          users: allUsers,
+          activeUser: currentUser.id,
+          syncedAt: new Date().toLocaleString('id-ID'),
+        },
+      };
+      await sendToAppsScript(payload);
       const timeStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-      setLastSyncedTime(`Sinkron: Berhasil (${timeStr} WIB)`);
-      addNotification('Sinkronisasi Cloud Berhasil', 'Data progres belajar telah diperbarui di seluruh perangkat.', 'info');
-    }, 1200);
+      setLastSyncedTime(`Sinkron: Google Sheets (${timeStr} WIB)`);
+      addNotification('Sinkronisasi Google Sheets Berhasil', 'Data progres dan nilai 15 unit telah dipancarkan ke Google Sheets via Apps Script.', 'success');
+    } catch {
+      const timeStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+      setLastSyncedTime(`Sinkron: Lokal (${timeStr} WIB)`);
+    } finally {
+      setIsSyncing(false);
+    }
   };
 
   const updateLesson = (levelId: 'newbie' | 'runner' | 'master', updated: LessonContent) => {
@@ -690,6 +803,24 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     } else {
       addNotification('Asesmen Selesai', `Skor: ${result.score}%. Silakan pelajari kembali modul untuk memperkuat kompetensi.`, 'info');
     }
+
+    // Auto-sync ke Google Sheets via Apps Script di latar belakang
+    sendToAppsScript({
+      action: 'save_assessment',
+      senderUnit: currentUser.unit,
+      senderEmail: currentUser.email,
+      timestamp: new Date().toISOString(),
+      data: {
+        userId: currentUserId,
+        userName: currentUser.name,
+        userUnit: currentUser.unit,
+        level: levelId,
+        score: result.score,
+        passed: result.passed,
+        dimensionScores: result.dimensionScores,
+        completedAt: new Date().toLocaleString('id-ID'),
+      },
+    }).catch(() => {});
   };
 
   const toggleHabit = (habitId: string) => {
@@ -889,6 +1020,37 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
   };
 
+  const resetDataToSourceCode = () => {
+    localStorage.removeItem('kac_users_list');
+    localStorage.removeItem('kac_lessons_config');
+    localStorage.removeItem('kac_bullets_config');
+    localStorage.removeItem('kac_habits_config');
+    localStorage.removeItem('kac_ipooi_config');
+    localStorage.removeItem('kac_quizzes_config');
+    localStorage.removeItem('kac_questions_newbie');
+    localStorage.removeItem('kac_questions_runner');
+    localStorage.removeItem('kac_questions_master');
+    localStorage.removeItem('kac_domain_titles');
+
+    setAllUsers(INITIAL_USERS);
+    setLessons(INITIAL_LESSONS);
+    setBullets(INITIAL_BULLETS);
+    setHabits(INITIAL_HABITS);
+    setIpooiData(INITIAL_IPOOI);
+    setQuizzes(INITIAL_QUIZZES);
+    setQuestions50Newbie(QUESTIONS_50);
+    setQuestions50Runner(RUNNER_QUESTIONS_50);
+    setQuestions50Master(MASTER_QUESTIONS_50);
+    setDomainTitles(DEFAULT_DOMAIN_TITLES);
+
+    addNotification(
+      'Sinkronisasi Sumber Sukses! 🔄',
+      'Seluruh 15 nama peserta, silabus, dan data sistem telah dimuat ulang persis sesuai src/data/initialData.ts!',
+      'achievement'
+    );
+    triggerCelebration();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -899,6 +1061,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         allUsers,
         isDarkMode,
         setIsDarkMode,
+        themePalette,
+        setThemePalette,
         isOfflineMode,
         setIsOfflineMode,
         isSyncing,
@@ -947,6 +1111,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         updateUserProfilePicture,
         showProfileModal,
         setShowProfileModal,
+        showGoogleSyncModal,
+        setShowGoogleSyncModal,
         isContentAdmin,
         questions50Newbie,
         questions50Runner,
@@ -956,6 +1122,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         globalAnnouncement,
         setGlobalAnnouncement,
         resetAllContentToDefault,
+        domainTitles,
+        updateDomainTitles,
+        resetDataToSourceCode,
+        logoStyle,
+        setLogoStyle,
       }}
     >
       {children}
