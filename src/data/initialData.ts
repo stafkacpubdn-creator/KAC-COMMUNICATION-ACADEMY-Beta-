@@ -40,12 +40,12 @@ export const isAuthorizedAdmin = (email?: string): boolean => {
 export const INITIAL_USERS: UserProfile[] = [
   {
     id: 'user-pusat',
-    name: 'Bung Abram Hanif (Kordinator Pusat)',
+    name: 'Bung Ovadya Basira Nugraha (Koordinat Pusat)',
     unit: 'KAC (Pusat)',
     unitCode: 'PUSAT',
     role: 'admin',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-    email: 'stafkacpubdn@gmail.com',
+    email: 'pubdnkac@gmail.com',
     streakDays: 14,
     totalXp: 4850,
     level: 3,
@@ -71,12 +71,12 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-pubdn',
-    name: 'Bung Ihsan Wicaksono (Admin Publikasi & Konten)',
+    name: 'Bung Abram Hanif (Admin Pusat)',
     unit: 'KAC (Pusat)',
     unitCode: 'PUSAT',
     role: 'admin',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
-    email: 'pubdnkac@gmail.com',
+    email: 'stafkacpubdn@gmail.com',
     streakDays: 16,
     totalXp: 4920,
     level: 3,
@@ -102,7 +102,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka01',
-    name: 'Bung Ahmad Fauzi (ka01)',
+    name: 'Bung Gabriel Ardhy Wicaksono (ka01)',
     unit: 'Shaf 2 (ka01)',
     unitCode: 'ka01',
     role: 'member',
@@ -133,7 +133,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka02',
-    name: 'Bung Budi Santoso (ka02)',
+    name: 'Bung Shalom Abdi Raya (ka02)',
     unit: 'Shaf 2 (ka02)',
     unitCode: 'ka02',
     role: 'member',
@@ -164,7 +164,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka03',
-    name: 'Bung Chandra Wijaya (ka03)',
+    name: 'Bung Aji Yuda Imanuel (ka03)',
     unit: 'Shaf 2 (ka03)',
     unitCode: 'ka03',
     role: 'member',
@@ -195,7 +195,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka04',
-    name: 'Bung Dedi Kurniawan (ka04)',
+    name: 'Bung Tirta Samudera Kahuripan (ka04)',
     unit: 'Shaf 2 (ka04)',
     unitCode: 'ka04',
     role: 'member',
@@ -226,7 +226,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka05',
-    name: 'Bung Eko Prasetyo (ka05)',
+    name: 'Bung Rafael Musholin (ka05)',
     unit: 'Shaf 2 (ka05)',
     unitCode: 'ka05',
     role: 'member',
@@ -257,7 +257,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka06',
-    name: 'Bung Farhan Maulana (ka06)',
+    name: 'Bung Adyrasha Bastian Akbar (ka06)',
     unit: 'Shaf 2 (ka06)',
     unitCode: 'ka06',
     role: 'member',
@@ -288,7 +288,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka07',
-    name: 'Bung Gilang Ramadhan (ka07)',
+    name: 'Bung Jacob Ali Wibowo (ka07)',
     unit: 'Shaf 2 (ka07)',
     unitCode: 'ka07',
     role: 'member',
@@ -319,7 +319,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka08',
-    name: 'Bung Hadi Gunawan (ka08)',
+    name: 'Bung Nathan Brahma (ka08)',
     unit: 'Shaf 2 (ka08)',
     unitCode: 'ka08',
     role: 'member',
@@ -350,7 +350,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka09',
-    name: 'Bung Indra Saputra (ka09)',
+    name: 'Bung Banusyairi Arkananta (ka09)',
     unit: 'Shaf 2 (ka09)',
     unitCode: 'ka09',
     role: 'member',
@@ -381,7 +381,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka10',
-    name: 'Bung Joko Prabowo (ka10)',
+    name: 'Bung Bilal N. Patiria (ka10)',
     unit: 'Shaf 2 (ka10)',
     unitCode: 'ka10',
     role: 'member',
@@ -412,7 +412,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka11',
-    name: 'Bung Kurnia Ilahi (ka11)',
+    name: 'Bung Yosef Kenzi Pratama (ka11)',
     unit: 'Shaf 2 (ka11)',
     unitCode: 'ka11',
     role: 'member',
@@ -443,7 +443,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka12',
-    name: 'Bung Lukman Hakim (ka12)',
+    name: 'Bung Ahmad Satria Arimatea (ka12)',
     unit: 'Shaf 2 (ka12)',
     unitCode: 'ka12',
     role: 'member',
@@ -474,7 +474,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka13',
-    name: 'Bung M. Rizky (ka13)',
+    name: 'Bung Radja Mikhael Al Haq (ka13)',
     unit: 'Shaf 2 (ka13)',
     unitCode: 'ka13',
     role: 'member',
@@ -505,7 +505,7 @@ export const INITIAL_USERS: UserProfile[] = [
   },
   {
     id: 'user-ka14',
-    name: 'Bung Nugroho Pratama (ka14)',
+    name: 'Bung Admaja Saif Ezra (ka14)',
     unit: 'Shaf 2 (ka14)',
     unitCode: 'ka14',
     role: 'member',
@@ -547,10 +547,10 @@ export const INITIAL_LESSONS: Record<'newbie' | 'runner' | 'master', LessonConte
     estimatedMinutes: 25,
     sections: [
       {
-        heading: '1. Hakikat Komunikator KAC & Disiplin Shaf 2',
-        body: 'Seorang komunikator KAC bukan sekadar penyampai kata, melainkan duta nilai yang memegang tanggung jawab moral dan integritas keteladanan. Pada tingkatan Shaf 2 (ka01-ka14), setiap unit adalah simpul penggerak di lapangan yang menghubungkan visi pusat dengan realitas jamaah.',
-        callout: 'Kaidah Utama: Pemahaman (Know How) mendahului tindakan. Jangan melangkah ke lapangan sebelum fondasi konsep terpatri kokoh.',
-        keyTakeaway: 'Integritas pesan bermula dari pemahaman teoretis yang lurus dan selaras dengan visi KAC Pusat.',
+        heading: '1. Hakikat Komunikator MA & Disiplin Shaf 2',
+        body: 'Seorang komunikator MA bukan sekadar penyampai kata, melainkan duta nilai yang memegang tanggung jawab moral dan integritas keteladanan. Pada tingkatan Shaf 2 (ka01-ka14), setiap unit adalah simpul penggerak di lapangan yang menghubungkan visi MA dengan realitas masyarakat.',
+        callout: 'Kaidah Utama: Pemahaman (Know How) mendahului tindakan. Bagi sahabat yang belum nyaman melakukan pengabaran, bersama kita mulai memperkuat fondasi konsep pengabaran agar terpatri kokoh.',
+        keyTakeaway: 'Integritas pesan bermula dari pemahaman teoretis yang lurus dan selaras dengan visi MA.',
       },
       {
         heading: '2. Anatomi Komunikasi Persuasif & Psikologi Penerima',
@@ -560,17 +560,17 @@ export const INITIAL_LESSONS: Record<'newbie' | 'runner' | 'master', LessonConte
       },
       {
         heading: '3. Metrik Base KPI A: Fondasi Standarisasi',
-        body: 'Base KPI A mewajibkan setiap peserta menguasai 5 pilar terminologi KAC, menyelesaikan kuesioner asesmen dasar tanpa bantuan catatan, serta membiasakan rutinitas Alpha Habit (membaca 1 modul/hari, review mandiri 15 menit, dan pencatatan refleksi).',
+        body: 'Base KPI A mewajibkan setiap peserta menguasai 6 pilar terminologi Pengabaran, menyelesaikan kuesioner asesmen dasar tanpa bantuan catatan, serta membiasakan rutinitas Alpha Habit (membaca 1 modul/hari, review mandiri 15 menit, dan pencatatan refleksi).',
         callout: 'Standar Kelulusan: Nilai minimum kuis adaptif 80 dari 100 poin.',
         keyTakeaway: 'Disiplin mencatat harian di Alpha Habit Tracker adalah indikator determinan keberhasilan komunikator masa depan.',
       },
     ],
     practicalExamples: [
       'Contoh Studi Kasus: Menghadapi audiens yang skeptis di tahap awal pertemuan.',
-      'Skenario Alpha: Menjawab pertanyaan kritis tentang dasar program KAC dengan santun dan berbobot.',
+      'Skenario Alpha: Menjawab pertanyaan kritis tentang VISI MA dengan santun dan berbobot.',
       'Latihan Refleksi Diri: Menilai gaya komunikasi pribadi (apakah pasif, agresif, atau asertif).',
     ],
-    flipbookUrl: 'https://sites.google.com/view/communicator-basic',
+    flipbookUrl: 'https://heyzine.com/flip-book/c8cf26fe26.html',
   },
   runner: {
     id: 'lesson-runner',
@@ -595,15 +595,15 @@ export const INITIAL_LESSONS: Record<'newbie' | 'runner' | 'master', LessonConte
         keyTakeaway: 'Ketahanan mental komunikator dibentuk saat menghadapi keberatan audiens secara elegan.',
       },
       {
-        heading: '3. Sinergi Koordinasi Antar Unit Shaf 2',
-        body: 'Tidak ada unit yang berjuang sendirian. Runner Class melatih koordinasi antar-ka (misalnya ka01 berkolaborasi dengan ka02 dan ka03) dalam berbagi pola pendekatan audiens lokal dan data tren respons masyarakat.',
+        heading: '3. Sinergi Koordinasi Antar PKU di dalam satu Unit Shaf 2',
+        body: 'Tidak ada PKU yang berjuang sendirian. Runner Class melatih koordinasi antar-PKU (misalnya KU SDK berkolaborasi dengan KU PUB dan KUB Idek) dalam berbagi pola pendekatan audiens lokal dan data tren respons masyarakat.',
         callout: 'Sistem Estafet: Informasi pengabaran dicatat real-time agar tindak lanjut pembinaan berjalan mulus.',
         keyTakeaway: 'Keberhasilan Shaf 2 diukur dari soliditas tim dan konsistensi transfer informasi.',
       },
     ],
     practicalExamples: [
       'Simulasi: Mengubah penolakan awal ("saya belum tertarik") menjadi diskusi dua arah yang hangat.',
-      'Role Play Beta: Menyampaikan solusi program KAC dalam waktu 5 menit secara padat dan memikat.',
+      'Role Play Beta: Menyampaikan solusi program MA dalam waktu 5 menit secara padat dan memikat.',
       'Trik Bahasa Tubuh: Menjaga kontak mata terbuka dan postur welcoming di lingkungan formal maupun informal.',
     ],
   },
@@ -619,14 +619,14 @@ export const INITIAL_LESSONS: Record<'newbie' | 'runner' | 'master', LessonConte
       {
         heading: '1. Puncak Keteladanan: Show How (Mentoring & Modeling)',
         body: 'Tingkat Master adalah tentang menjadi teladan hidup (living benchmark). Seorang Master tidak lagi sekadar berteori atau bekerja teknis; mereka mendemonstrasikan seni komunikasi persuasif tingkat tinggi di hadapan anggota yunior dan audiens kunci strategis.',
-        callout: 'Kaidah Master: Pemimpin sejati melipatgandakan dampak dengan melahirkan komunikator-komunikator unggul baru.',
+        callout: 'Kaidah Master: Master sejati melipatgandakan dampak dengan melahirkan komunikator-komunikator unggul baru.',
         keyTakeaway: 'Show How berarti karya dan integritas kita yang berbicara sebelum lisan kita bertutur.',
       },
       {
-        heading: '2. Roof KPI C: Standar Puncak KAC',
-        body: 'Roof KPI C menilai kemampuan strategis: merumuskan analisis IPOOI regional, memandu sesi AORA lintas wilayah, serta menjaga Delta Habit Tracker (coaching mingguan, publikasi kajian berkala, dan penyempurnaan kurikulum modul).',
+        heading: '2. Roof KPI C: Standar Puncak Pengabaran',
+        body: 'Roof KPI C menilai kemampuan strategis: merumuskan analisis IPOOI regional, memandu sesi AORA lintas sektoral, serta menjaga Delta Habit Tracker (coaching mingguan, publikasi kajian berkala, dan penyempurnaan kurikulum modul).',
         callout: 'Standar Kelulusan: Asesmen Lanjut berbasis skenario dilematis yang menuntut penalaran etis dan strategis.',
-        keyTakeaway: 'Master bertanggung jawab atas kesinambungan kaderisasi dan ketepatan arah misi KAC.',
+        keyTakeaway: 'Master bertanggung jawab atas kesinambungan kaderisasi dan ketepatan arah misi MA.',
       },
       {
         heading: '3. Manajemen Krisis Komunikasi & Resolusi Konflik',
@@ -640,6 +640,7 @@ export const INITIAL_LESSONS: Record<'newbie' | 'runner' | 'master', LessonConte
       'Simulasi Show How: Memberikan pendampingan (mentorship) one-on-one kepada anggota ka baru.',
       'Audit Narasi: Menganalisis efektivitas materi pengabaran berdasarkan dampak jangka panjang.',
     ],
+    flipbookUrl: 'https://heyzine.com/flip-book/02dcdf4956.html',
   },
 };
 
@@ -800,7 +801,7 @@ export const INITIAL_HABITS: HabitItem[] = [
   {
     id: 'habit-1',
     title: 'Alpha: Baca Modul Mandiri (15 Menit)',
-    description: 'Membaca dan meresapi 1 sub-bab materi teoretis KAC setiap pagi.',
+    description: 'Membaca dan meresapi 1 sub-bab materi teoretis MA Communicators Academy Network (MACAN)setiap pagi.',
     targetPerDay: 1,
     completedToday: true,
     history: { '2026-10-14': true, '2026-10-13': true, '2026-10-12': true },
@@ -861,7 +862,7 @@ export const INITIAL_BULLETS: Record<string, BulletModule> = {
     description: 'Format ringkas terstruktur untuk membuka pembicaraan tanpa bertele-tele namun menyentuh rasa ingin tahu audiens secara etis.',
     checklistItems: [
       { id: 'ep-1', text: 'Hook Menarik: Masalah nyata yang dirasakan audiens', done: true },
-      { id: 'ep-2', text: 'Jembatan Nilai: Visi KAC sebagai wadah solusi', done: true },
+      { id: 'ep-2', text: 'Jembatan Nilai: Visi MA sebagai wadah solusi', done: true },
       { id: 'ep-3', text: 'Call to Action: Undangan bersahabat untuk dialog santai lanjutan', done: false },
       { id: 'ep-4', text: 'Artikulasi Vokal: Tempo stabil 120 kata/menit tanpa jeda canggung', done: true },
     ],
@@ -873,7 +874,7 @@ export const INITIAL_BULLETS: Record<string, BulletModule> = {
       },
       {
         title: 'Detik 11 - 35: The Solution & Story',
-        desc: 'Jelaskan bagaimana KAC membangun wadah pembinaan yang terbukti membawa manfaat.',
+        desc: 'Jelaskan bagaimana Shaf 2 membangun wadah pembinaan yang terbukti membawa manfaat.',
         tips: 'Sertakan contoh konkret hasil perubahan positif di lingkungan Shaf 2.',
       },
       {
@@ -882,7 +883,7 @@ export const INITIAL_BULLETS: Record<string, BulletModule> = {
         tips: 'Tutup dengan senyum tulus dan serahkan kartu nama atau nomor WA.',
       },
     ],
-    notes: 'Kunci Elevator Pitch bukan menjual seketika, melainkan membuka pintu silaturahmi yang berkelanjutan.',
+    notes: 'Kunci Elevator Pitch bukan menjual seketika, melainkan membuka pintu silaturahmi yang berkelanjutan. Modul referensi publikasi digital e-book Heyzine: https://heyzine.com/flip-book/34b7c06852.html',
   },
   'pra-pengabaran': {
     id: 'pra-pengabaran',
@@ -918,10 +919,10 @@ export const INITIAL_BULLETS: Record<string, BulletModule> = {
     id: 'materi-pengabaran',
     title: 'Materi Pengabaran (Penyampaian Inti)',
     tagline: 'Menyampaikan Pesan Kebenaran dengan Bahasa Kasih dan Kebijaksanaan',
-    description: 'Kumpulan naskah inti, dalil filosofis, dan panduan dialog untuk menyampaikan esensi gerakan KAC secara terstruktur dan mencerahkan.',
+    description: 'Kumpulan naskah inti, dalil filosofis, dan panduan dialog untuk menyampaikan esensi kewahyuan secara terstruktur dan mencerahkan.',
     checklistItems: [
       { id: 'mp-1', text: 'Pembukaan dengan salam hangat dan apresiasi waktu audiens', done: true },
-      { id: 'mp-2', text: 'Penyampaian 3 pokok ajaran KAC dengan analogi sederhana', done: true },
+      { id: 'mp-2', text: 'Penyampaian 3 pokok ajaran MA dengan analogi sederhana', done: true },
       { id: 'mp-3', text: 'Mendengarkan 60% waktu, berbicara 40% waktu', done: false },
       { id: 'mp-4', text: 'Pencatatan pertanyaan atau keberatan di log harian', done: true },
     ],
@@ -1017,7 +1018,7 @@ export const INITIAL_IPOOI: IPOOIData = {
     targetHours: 50.0,
     attendanceRate: 92,
     materialsReadCount: 28,
-    notes: 'Kehadiran unit KAC Pusat dan Shaf 2 stabil di atas 90%. Alokasi waktu belajar mandiri meningkat 15% dari pekan lalu.',
+    notes: 'Kehadiran shaf 2 dan Shaf 3 stabil di atas 90%. Alokasi waktu belajar mandiri meningkat 15% dari pekan lalu.',
   },
   process: {
     quizAttempts: 84,
@@ -1043,7 +1044,7 @@ export const INITIAL_IPOOI: IPOOIData = {
     communicatorMaturityLevel: 'Advanced',
     shafReadinessScore: 91.2,
     kacOverallImpactIndex: 87.8,
-    notes: 'Kemandirian komunikator KAC Pusat dan Shaf 2 telah mencapai tahap kematangan tinggi (Advanced Level). Siap untuk ekspansi pembinaan regional.',
+    notes: 'Kemandirian komunikator Shaf 2 dan Shaf 3 telah mencapai tahap kematangan tinggi (Advanced Level). Siap untuk ekspansi pembinaan regional.',
   },
 };
 
@@ -1115,14 +1116,14 @@ export const INITIAL_FORUM_POSTS: ForumPost[] = [
     comments: [
       {
         id: 'c-1',
-        authorName: 'Bung Ahmad Fauzi (ka01)',
+        authorName: 'Bung Gabriel Ardhy Wicaksono (ka01)',
         authorUnit: 'Shaf 2 (ka01)',
         text: 'Siap Bung Abram! Puji Tuan di ka01 sudah berjalan 12 hari beruntun. Teman-teman semakin mantap saat dialog.',
         timestamp: '1 jam yang lalu',
       },
       {
         id: 'c-2',
-        authorName: 'Bung Lukman Hakim (ka12)',
+        authorName: 'Bung Ahmad Satria Arimatea (ka12)',
         authorUnit: 'Shaf 2 (ka12)',
         text: 'Catatan refleksi harian sangat membantu saat kami mengevaluasi penolakan kemarin di lapangan.',
         timestamp: '40 menit yang lalu',
@@ -1131,7 +1132,7 @@ export const INITIAL_FORUM_POSTS: ForumPost[] = [
   },
   {
     id: 'post-2',
-    authorName: 'Bung Chandra Wijaya (ka03)',
+    authorName: 'Bung Shalom Abdi Raya (ka03)',
     authorUnit: 'Shaf 2 (ka03)',
     authorAvatar: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150&auto=format&fit=crop&q=80',
     timestamp: '5 jam yang lalu',
@@ -1143,7 +1144,7 @@ export const INITIAL_FORUM_POSTS: ForumPost[] = [
     comments: [
       {
         id: 'c-3',
-        authorName: 'Bung Budi Santoso (ka02)',
+        authorName: 'Bung Aji Yuda Imanuel (ka02)',
         authorUnit: 'Shaf 2 (ka02)',
         text: 'Luar biasa dan salut! Boleh di-share draf naskah pendekatan tahap "Act"-nya Bung Chandra?',
         timestamp: '3 jam yang lalu',
