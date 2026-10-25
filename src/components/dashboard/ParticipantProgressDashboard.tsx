@@ -23,12 +23,20 @@ import {
   AlertCircle,
   Eye,
   Sparkles,
+  FileSpreadsheet,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { UserProfile } from '../../types';
 
 export const ParticipantProgressDashboard: React.FC = () => {
-  const { allUsers, currentUser, switchUser, addNotification, triggerCelebration } = useApp();
+  const {
+    allUsers,
+    currentUser,
+    switchUser,
+    addNotification,
+    triggerCelebration,
+    setShowGoogleSyncModal,
+  } = useApp();
 
   const [search, setSearch] = useState('');
   const [filterLevel, setFilterLevel] = useState<'all' | 'level1' | 'level2' | 'level3'>('all');
@@ -92,11 +100,18 @@ export const ParticipantProgressDashboard: React.FC = () => {
             Pantau perkembangan kemampuan komunikasi 15 unit secara terperinci: status asesmen 3 tingkat (Newbie, Runner, Master), rekor 21-Day Habit Tracker, dan radar 8 keterampilan lapangan.
           </p>
         </div>
-        <div className="flex items-center space-x-2.5 shrink-0">
+        <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+          <button
+            onClick={() => setShowGoogleSyncModal(true)}
+            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-lg shadow-emerald-500/25 flex items-center space-x-2 transition-all hover:scale-105 cursor-pointer"
+          >
+            <FileSpreadsheet className="w-4 h-4 text-emerald-200" />
+            <span>Koneksi Google Sheets &amp; GitHub</span>
+          </button>
           <button
             onClick={handleSimulateLiveUpdate}
             disabled={isLiveSimulating}
-            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-sky-500/25 flex items-center space-x-2 transition-all hover:scale-105"
+            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-sky-500/25 flex items-center space-x-2 transition-all hover:scale-105 cursor-pointer"
           >
             <RefreshCw className={`w-4 h-4 ${isLiveSimulating ? 'animate-spin' : ''}`} />
             <span>{isLiveSimulating ? 'Memperbarui...' : 'Simulasi Update Real-Time'}</span>
