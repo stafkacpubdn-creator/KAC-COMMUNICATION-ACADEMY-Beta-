@@ -11,6 +11,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { BrandLogo } from '../brand/BrandLogo';
 
 export const ProgressReportModal: React.FC = () => {
   const {
@@ -59,21 +60,23 @@ export const ProgressReportModal: React.FC = () => {
         {/* Printable Document Body */}
         <div id="printable-report" className="space-y-6 text-slate-800 dark:text-slate-100 print:text-black">
           {/* Document Header */}
-          <div className="border-b-2 border-slate-800 dark:border-white/20 pb-4 flex items-center justify-between">
-            <div>
-              <div className="text-[10px] uppercase font-mono font-bold tracking-widest text-sky-500">
-                KAC COMMUNICATOR ACADEMY
+          <div className="border-b-2 border-slate-800 dark:border-white/20 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 rounded-xl bg-white shadow-xs border border-slate-200 shrink-0">
+                <BrandLogo size="sm" />
               </div>
-              <h1 className="text-xl font-black tracking-tight">
-                LAPORAN KEMAJUAN BELAJAR & KOMPETENSI
-              </h1>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Pusat Pembinaan Komunikator KAC & Unit Shaf 2 (ka01 - ka14)
-              </p>
+              <div>
+                <h1 className="text-lg md:text-xl font-black tracking-tight text-slate-900 dark:text-white print:text-black">
+                  LAPORAN KEMAJUAN BELAJAR &amp; KOMPETENSI
+                </h1>
+                <p className="text-xs text-slate-500 dark:text-slate-400 print:text-slate-600">
+                  Millah Abraham Communicators Academy Network • Shaf 2 (ka01 - ka14)
+                </p>
+              </div>
             </div>
-            <div className="text-right text-xs">
-              <div className="font-bold">Dokumen Resmi No: KAC/REP/2026-X</div>
-              <div className="text-slate-400 text-[11px]">Tanggal: 14 Oktober 2026</div>
+            <div className="text-left sm:text-right text-xs">
+              <div className="font-bold text-sky-600 dark:text-sky-400 font-mono">DOKUMEN RESMI MA·CAN</div>
+              <div className="text-slate-400 text-[11px]">Tanggal: {new Date().toLocaleDateString('id-ID')}</div>
             </div>
           </div>
 
