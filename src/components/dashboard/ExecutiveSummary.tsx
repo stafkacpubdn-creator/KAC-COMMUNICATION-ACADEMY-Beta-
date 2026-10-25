@@ -15,6 +15,7 @@ import {
   Activity,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { BrandLogo } from '../brand/BrandLogo';
 
 export const ExecutiveSummary: React.FC = () => {
   const {
@@ -39,14 +40,20 @@ export const ExecutiveSummary: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Executive Welcome Banner */}
+      {/* Executive Welcome Banner with Master Brand Lock */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#173052] via-[#1a3860] to-[#122844] border border-sky-500/30 shadow-2xl p-6 md:p-8 text-white">
         <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-2 max-w-2xl">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-400/20 text-sky-300 border border-sky-400/30 text-xs font-semibold">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Sistem Pembelajaran Mandiri Adaptif Real-Time</span>
+          <div className="space-y-3 max-w-2xl">
+            {/* Master Brand Official Lock Card */}
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="p-1 rounded-2xl bg-white shadow-md border border-slate-200 inline-flex items-center overflow-hidden">
+                <BrandLogo size="sm" />
+              </div>
+              <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[11px] font-bold">
+                <Sparkles className="w-3 h-3 text-amber-300" />
+                <span>OFFICIAL MASTER BRAND • MA·CAN</span>
+              </div>
             </div>
             <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-tight">
               Selamat Belajar, <span className="text-sky-300">{currentUser.name}</span>
